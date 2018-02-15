@@ -27,6 +27,27 @@ services:
     networks:
       - backend-service  
 
+  frontend-service:
+    build: ./frontend
+    command: npm run dev
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./frontend:/app
+    networks:
+      - backend-service  
+      - frontend-service
+    environment:
+      - BACKEND_API=http://backend-api:3000
+
+  frontend-session:
+    image: mongo:3.0.4
+    ports:
+      - "27018:27017"
+    networks:
+      - frontend-service
+    
+
 networks: 
   backend-service:
   frontend-service:
