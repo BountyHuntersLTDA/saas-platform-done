@@ -1,20 +1,35 @@
 'use strict';
 
+const api = require('../libs/helpers/backend-api');
+
 module.exports = app => {
 
+    /**
+     * Handler to Home
+     */
+    app.get('/', (req, res) => res.redirect('/home'));
+    
+    /**
+     * Serve Signin page
+     */
     app.get('/signin', (req, res) => {
         res.render('signin', { layout: 'sign' });
     });
-
-    app.post('/signin', (req, res) => {});
-
+    
+    /**
+     * Serve Signup page
+     */
     app.get('/signup', (req, res) => {
         res.render('signup', { layout: 'sign' });
     });
 
-    app.post('/signup', (req, res) => {});
-
-    app.get('/logout', (req, res) => {});
+    /**
+     * Logout session
+     */
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/signin');
+    });
 
 
 };

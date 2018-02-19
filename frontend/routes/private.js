@@ -1,40 +1,42 @@
 'use strict';
 
+const auth = require('../middlewares/auth');
+
 module.exports = app => {
 
-    app.get('/home', (req, res) => {
+    app.get('/home', auth.isLoggedIn, (req, res) => {
         res.render('home', { layout: 'dashboard' });
     });
 
-    app.get('/clients', (req, res) => {
+    app.get('/clients', auth.isLoggedIn, (req, res) => {
         res.render('clients', { layout: 'dashboard' });
     });
 
-    app.get('/clients/add', (req, res) => {
+    app.get('/clients/add', auth.isLoggedIn, (req, res) => {
         res.render('createclients', { layout: 'dashboard' });
     });
 
-    app.get('/clients/:id/edit', (req, res) => {
+    app.get('/clients/:id/edit', auth.isLoggedIn, (req, res) => {
         res.render('createclients', { layout: 'dashboard' });
     });
 
-    app.get('/clients/:id/delete', (req, res) => {
+    app.get('/clients/:id/delete', auth.isLoggedIn, (req, res) => {
         res.render('createclients', { layout: 'dashboard' });
     });
 
-    app.get('/jobs', (req, res) => {
+    app.get('/jobs', auth.isLoggedIn, (req, res) => {
         res.render('jobs', { layout: 'dashboard' });
     });
 
-    app.get('/jobs/add', (req, res) => {
+    app.get('/jobs/add', auth.isLoggedIn, (req, res) => {
         res.render('createjobs', { layout: 'dashboard' });
     });
 
-    app.get('/jobs/:id/edit', (req, res) => {
+    app.get('/jobs/:id/edit', auth.isLoggedIn, (req, res) => {
         res.render('jobs', { layout: 'dashboard' });
     });
 
-    app.get('/jobs/:id/delete', (req, res) => {
+    app.get('/jobs/:id/delete', auth.isLoggedIn, (req, res) => {
         res.render('jobs', { layout: 'dashboard' });
     });
 
