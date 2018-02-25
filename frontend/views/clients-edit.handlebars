@@ -1,0 +1,60 @@
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- Widgets -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            EDIT CLIENT: {{data.client.name}}
+                        </h2>
+
+                    </div>
+                    <div class="body">
+                        <form action="/clients/{{data.client._id}}/edit" method="POST">
+
+                            <label for="name">Name</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="hidden" id="_id" name="_id" value="{{data.client._id}}">
+                                    <input type="text" id="name" name="name"class="form-control" placeholder="John Wick" value="{{data.client.name}}">
+                                </div>
+                            </div>
+
+                            <label for="email_address">Email Address</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="email" id="email" name="email"class="form-control" placeholder="name@email.com" value="{{data.client.email}}">
+                                </div>
+                            </div>
+
+                            <label for="phone">Phone</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="phone" name="phone"class="form-control" placeholder="+55 11 66677-9988" value="{{data.client.phone}}">
+                                </div>
+                            </div>
+
+                            <label for="obs">OBS</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <textarea name="obs" id="obs" class="form-control">{{data.client.obs}}</textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">CREATE</button>
+                            <a class="btn btn-danger m-t-15 waves-effect" href="/clients">CANCEL</a>
+                            <button type="button" class="btn btn-warning m-t-15 waves-effect">CLEAN</button>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+</section>

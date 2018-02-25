@@ -33,43 +33,29 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>FIRST NAME</th>
-                                        <th>LAST NAME</th>
-                                        <th>USERNAME</th>
+                                        <th>NAME</th>
+                                        <th>EMAIL</th>
+                                        <th>PHONE</th>
+                                        <th>ACTIONS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td>Larry</td>
-                                        <td>Jellybean</td>
-                                        <td>@lajelly</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">5</th>
-                                        <td>Larry</td>
-                                        <td>Kikat</td>
-                                        <td>@lakitkat</td>
-                                    </tr>
+                                    {{#each data.clients}}
+
+                                        <tr>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.email}}</td>
+                                            <td>{{this.phone}}</td>
+                                            <td>
+                                                <div class="actions clearfix">
+                                                    <a class="btn btn-xs btn-info waves-effect" href="/clients/delete?client={{this._id}}"> <i class="material-icons">assessment</i> </a>
+                                                    <a class="btn btn-xs btn-warning waves-effect" href="/clients/{{this._id}}/edit"> <i class="material-icons">mode_edit</i> </a>
+                                                    <a class="btn btn-xs btn-danger waves-effect" href="/clients/{{this._id}}/delete"> <i class="material-icons">delete</i> </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    {{/each}}
                                 </tbody>
                             </table>
                         </div>

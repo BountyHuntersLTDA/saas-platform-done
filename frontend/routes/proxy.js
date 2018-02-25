@@ -44,4 +44,57 @@ module.exports = app => {
 
     });
 
+    /**
+     * Create client on Proxy API
+     */
+    app.post('/clients/add', (req, res) => {
+
+        const data = req.body;
+        console.log(data);
+
+        api.createClient(data, req.session.user.token)
+            .then(success => {
+                console.log(success.data);
+                res.redirect('/clients');
+            })
+            .catch(err => {
+                console.log(err.response.data);
+                res.redirect('/clients')
+            })
+
+    })
+
+    app.post('/clients/:id/edit', (req, res) => {
+
+        const id = req.params.id;
+        const data = req.body;
+
+        console.log(data);
+
+        api.editClient(data, req.session.user.token)
+            .then(success => {
+                console.log(success);
+                res.redirect(`/clients/${id}/edit`);
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect(`/clients/${id}/edit`);
+            });
+
+    });
+
+    
+    app.get('/clients/:id/delete', (req, res) => {
+
+        const id = req.params.id;
+        
+        api.deleteCLient(id, req.session.user.token)
+            .then(success => res.redirect('/clients'))
+            .catch(err => {
+                console.log(err);
+                res.redirect('/clients');
+            })
+
+    });
+
 };
