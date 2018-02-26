@@ -83,17 +83,47 @@ module.exports = app => {
 
     });
 
-    
     app.get('/clients/:id/delete', (req, res) => {
 
         const id = req.params.id;
         
-        api.deleteCLient(id, req.session.user.token)
-            .then(success => res.redirect('/clients'))
-            .catch(err => {
-                console.log(err);
-                res.redirect('/clients');
+        api.deleteClient(id, req.session.user.token)
+            .then(success => {
+                res.redirect('/clients')
             })
+            .catch(err => {
+                res.redirect('/clients');
+            });
+
+    });
+
+    app.post('/jobs/add', (req, res) => {
+
+        const data = req.body;
+        console.log(data);
+
+        api.createJob(data, req.session.user.token)
+            .then(success => {
+                console.log(success.data);
+                res.redirect('/jobs');
+            })
+            .catch(err => {
+                console.log(err.response.data);
+                res.redirect('/jobs')
+            })
+    });
+
+    app.get('/jobs/:id/delete', (req, res) => {
+
+        const id = req.params.id;
+        
+        api.deleteJob(id, req.session.user.token)
+            .then(success => {
+                res.redirect('/jobs')
+            })
+            .catch(err => {
+                res.redirect('/jobs');
+            });
 
     });
 

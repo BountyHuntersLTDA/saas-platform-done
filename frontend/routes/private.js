@@ -18,7 +18,7 @@ module.exports = app => {
 
         api.listClients({}, req.session.user.token)
             .then(clients => {
-                data.clients = clients.data.docs;
+                data.clients = clients.docs;
                 res.render('clients-list', { layout: 'dashboard', data: data });
             })
             .catch(err => console.log(err));
@@ -46,19 +46,50 @@ module.exports = app => {
     });
 
     app.get('/jobs', auth.isLoggedIn, (req, res) => {
-        res.render('jobs', { layout: 'dashboard' });
+
+        const data = {};
+        data.user = req.session.user;
+
+        api.listJobs({}, req.session.user.token)
+            .then(jobs => {
+                data.jobs = jobs;
+                console.log(data);
+                res.render('jobs-list', { layout: 'dashboard', data: data });
+            })
+            .catch(err => console.log(err));
+
     });
 
     app.get('/jobs/add', auth.isLoggedIn, (req, res) => {
-        res.render('createjobs', { layout: 'dashboard' });
+
+        const data = {};
+        data.user = req.session.user;
+        
+        api.listClients({}, req.session.user.token)
+            .then(clients => {
+                data.clients = clients.docs;
+                res.render('jobs-create', { layout: 'dashboard', data: data });
+            })
+            .catch(err => console.log(err));
+
     });
 
     app.get('/jobs/:id/edit', auth.isLoggedIn, (req, res) => {
-        res.render('jobs', { layout: 'dashboard' });
-    });
 
-    app.get('/jobs/:id/delete', auth.isLoggedIn, (req, res) => {
-        res.render('jobs', { layout: 'dashboard' });
+
+        const data = {};
+        data.user = req.session.user;
+
+        api.detailJob(req.params.id, req.session.user.token)   
+            .then(job => {
+                data.job = job;
+                res.render('jobs-edit', { layout: 'dashboard', data: data });
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect('/jobs');
+            });
+
     });
 
 

@@ -64,7 +64,7 @@ module.exports.listClients = (options = {}, token ) => {
             "content-type" : "application/json",
             "Authorization": token 
         }
-    })
+    }).then(success => success.data);
 };
 
 /**
@@ -105,9 +105,10 @@ module.exports.editClient = (data, token) => {
  * @param {*} id 
  * @param {*} token 
  */
-module.exports.deleteCLient = (id, token) => {
+module.exports.deleteClient = (id, token) => {
+    console.log("ENTROU NO HELPER");
     return axios({
-        methor: "DELETE", 
+        method: "DELETE", 
         url: `${API_URL}/clients/${id}`, 
         headers: {
             "content-type" : "application/json",
@@ -115,3 +116,85 @@ module.exports.deleteCLient = (id, token) => {
         }
     });
 };
+
+/**
+ * List jobs on Backend 
+ * @param {*} options 
+ * @param {*} token 
+ */
+module.exports.listJobs = (options = {}, token ) => {
+    return axios({
+        method: "GET", 
+        url: `${API_URL}/jobs`, 
+        headers: {
+            "content-type" : "application/json",
+            "Authorization": token 
+        }
+    }).then(success => success.data);
+};
+
+/**
+ * Detail Job via API
+ * @param {*} id 
+ * @param {*} token 
+ */
+module.exports.detailJob = (id, token) => {
+    return axios({
+        methor: "GET", 
+        url: `${API_URL}/jobs/${id}`, 
+        headers: {
+            "content-type" : "application/json",
+            "Authorization": token 
+        }
+    }).then(success => success.data)
+};
+
+/**
+ * Delete client via API
+ * @param {*} id 
+ * @param {*} token 
+ */
+module.exports.deleteJob = (id, token) => {
+    return axios({
+        method: "DELETE", 
+        url: `${API_URL}/jobs/${id}`, 
+        headers: {
+            "content-type" : "application/json",
+            "Authorization": token 
+        }
+    });
+};
+
+/**
+ * Create new client on Backend API
+ * @param {*} data 
+ * @param {*} token 
+ */
+module.exports.createJob = (data, token) => {
+    return axios({
+        method: "POST", 
+        url: `${API_URL}/jobs`,
+        headers: {
+            "content-type" : "application/json",
+            "Authorization": token
+        },
+        data: data
+    });
+}
+
+/**
+ * Edit client via API
+ * @param {*} data 
+ * @param {*} token 
+ */
+module.exports.editJob = (data, token) => {
+    return axios({
+        method: "PUT", 
+        url: `${API_URL}/jobs/${data._id}`,
+        headers: {
+            "content-type" : "application/json",
+            "Authorization": token
+        },
+        data: data
+    }).then(success => success.data);
+}

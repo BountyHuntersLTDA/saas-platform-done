@@ -140,6 +140,7 @@ module.exports.cancelJob = (req, res) => {
     const params = req.body;
     params.user = user._id;
 
+    const id = req.params.id;
 
     if (params.user === undefined) {
         res.status(401).json({ error: "Invalid user" });
