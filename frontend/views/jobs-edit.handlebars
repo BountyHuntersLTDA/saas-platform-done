@@ -1,0 +1,65 @@
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- Widgets -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            EDIT JOB: {{data.job.description}}
+                        </h2>
+
+                    </div>
+                    <div class="body">
+                        <form action="/jobs/{{data.job._id}}/edit" method="POST">
+
+                            <label for="description">Description</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="hidden" id="_id" name="_id" value="{{data.job._id}}">
+                                    <input type="text" id="description" name="description" class="form-control" placeholder="Website creation" value="{{data.job.description}}">
+                                </div>
+                            </div>
+
+                            <label for="client">Client</label>
+                            <div class="bootstrap-select form-control show-tick">
+                                <select class="form-control show-tick" data-live-search="true" name="client" id="client" tabindex="-98" selected="{{data.job.client._id}}">
+                                    {{#each data.clients}}
+                                        <option value="{{this._id}}">{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+
+                            <label for="value">Value</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">attach_money</i>
+                                </span>
+                                <div class="form-line">
+                                    <input type="text" name="value" id="value" class="form-control money-dollar" placeholder="Ex: 99,99 $" value="{{data.job.value}}">
+                                </div>
+                            </div>
+
+                            <label for="obs">OBS</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <textarea name="obs" id="obs" class="form-control">{{data.job.obs}}</textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">UPDATE</button>
+                            <a href="/jobs" class="btn btn-danger m-t-15 waves-effect">CANCEL</a>
+                            <button type="button" class="btn btn-warning m-t-15 waves-effect">CLEAN</button>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+</section>

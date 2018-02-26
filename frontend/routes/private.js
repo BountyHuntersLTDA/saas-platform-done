@@ -37,7 +37,6 @@ module.exports = app => {
 
         api.detailClient(req.params.id, req.session.user.token)
             .then(client => {
-                console.log(client);
                 data.client = client;
                 res.render('clients-edit', { layout: 'dashboard', data: data });
             })
@@ -53,7 +52,6 @@ module.exports = app => {
         api.listJobs({}, req.session.user.token)
             .then(jobs => {
                 data.jobs = jobs;
-                console.log(data);
                 res.render('jobs-list', { layout: 'dashboard', data: data });
             })
             .catch(err => console.log(err));
@@ -76,20 +74,24 @@ module.exports = app => {
 
     app.get('/jobs/:id/edit', auth.isLoggedIn, (req, res) => {
 
-
         const data = {};
         data.user = req.session.user;
 
-        api.detailJob(req.params.id, req.session.user.token)   
-            .then(job => {
-                data.job = job;
-                res.render('jobs-edit', { layout: 'dashboard', data: data });
-            })
-            .catch(err => {
-                console.log(err);
-                res.redirect('/jobs');
-            });
+        const id = req.params.id;
 
+        api.detailJob(id, req.session.user.token)
+            .then(job => {
+
+                data.job = job;
+
+                api.listClients({}, req.session.user.token)
+                    .then(clients => {
+                        data.clients = clients.docs;
+                        console.log(data);
+                        res.render('jobs-edit', { layout: 'dashboard', data: data });
+                    });
+             
+            });
     });
 
 

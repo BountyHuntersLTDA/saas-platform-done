@@ -126,6 +126,18 @@ module.exports.detailJob = (req, res) => {
         res.status(401).json({ error: "Invalid user" });
     }
 
+    jobsService.findJobById(req.params.id, params.user)
+        .then(job => {
+
+            if (job === null) {
+                res.status(404).json({ message: `Job not found` });
+            } else {
+                res.status(200).json(job);
+            }
+
+        })
+        .catch(err => res.status(404).json({ message: `Job not found` }));
+
 };
 
 /**
@@ -159,7 +171,6 @@ module.exports.cancelJob = (req, res) => {
                         console.log(err);
                         res.status(500).json(err);
                     });
-
             }
 
         }).catch(err => res.status(404).json({ message: `Job not found` }));

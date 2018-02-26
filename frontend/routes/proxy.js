@@ -127,4 +127,22 @@ module.exports = app => {
 
     });
 
+    app.post('/jobs/:id/edit', (req, res) => {
+
+        const id = req.params.id;
+        const data = req.body;
+
+
+        api.editJob(data, req.session.user.token)
+            .then(success => {
+                console.log(success);
+                res.redirect(`/jobs/${id}/edit`);
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect(`/jobs/${id}/edit`);
+            });
+
+    });
+
 };
